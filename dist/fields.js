@@ -48,6 +48,13 @@ const fields = {
         type: 'float',
         default: 5.0,
         description: 'Rate of %/sec by which a tube repairs after being fixed.'
+    },
+    stationNotifications: {
+        name: 'Station Notifications',
+        input: 'checkbox',
+        type: 'boolean',
+        default: true,
+        description: 'Whether the space station should audibly announce tube breakages and rover events.'
     }
 };
 const DIARCfields = {
@@ -56,7 +63,78 @@ const DIARCfields = {
         input: 'number',
         type: 'integer',
         default: 8000,
-        description: 'Port number to bind Websocket server for DIARC UnitySpaceshipComponent.'
+        description: 'Port number to bind Unity Websocket server for DIARC UnitySpaceshipComponent to connect to as a client.'
     }
+};
+const ROSfields = {
+    model: {
+        name: 'Robot Model',
+        input: 'select',
+        options: ['PR2'],
+        type: 'string',
+        default: 'PR2',
+        description: 'Model of robot to be used in your study.'
+    },
+    IP: {
+        name: 'RosBridge Server IP Address',
+        input: 'text',
+        type: 'string',
+        default: '192.168.0.248',
+        description: 'IP address of remote RosBridge server for Unity to connect to as a client.'
+    },
+    port: {
+        name: 'RosBridge Server Port',
+        input: 'number',
+        type: 'integer',
+        default: 8000,
+        description: 'Port number of remote RosBridge server for Unity to connect to as a client.'
+    },
+    voice: {
+        name: 'Robot Voice Actor',
+        input: 'select',
+        options: ['default'],
+        type: 'string',
+        default: 'default',
+        description: 'Synthesized TTS voice to assign to this robot.'
+    }
+};
+const trialFields = {
+    seconds: {
+        name: 'Trial length',
+        input: 'number',
+        type: 'integer',
+        default: 300,
+        description: 'Length of the trial in seconds.'
+    },
+    robots: {
+        name: 'Number of Robots',
+        input: 'number',
+        type: 'integer',
+        default: 1,
+        description: 'Number of robots in this trial. Should not exceed number of total RosBridge connections.'
+    },
+    survey: {
+        name: 'Survey',
+        input: 'checkbox',
+        type: 'boolean',
+        default: true,
+        description: 'Whether to include survey questions at end of trial.'
+    }
+};
+const tubeLabels = {
+    wings: [
+        "Alpha",
+        "Beta",
+        "Gamma"
+    ],
+    sides: [
+        "Left",
+        "Right"
+    ],
+    tubeCount: 12
+};
+const roversLabels = {
+    cols: ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S'],
+    rows: 19
 };
 //# sourceMappingURL=fields.js.map

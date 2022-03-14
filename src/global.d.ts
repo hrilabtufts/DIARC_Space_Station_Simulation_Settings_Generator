@@ -15,8 +15,22 @@ interface Fields {
 	tubeOnDecayRate : Field;
 	tubeOffDecayRate : Field;
 	tubeRepairRate : Field;
+	stationNotifications : Field;
 }
 
 interface DIARCFields {
 	port : Field;
+}
+
+interface ROSFields {
+	model : Field;
+	IP : Field;
+	port : Field;
+	voice : Field;
+}
+
+interface TrialsFields {
+	seconds : Field;
+	robots : Field;
+	survey : Field;
 }
