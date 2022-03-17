@@ -88,7 +88,7 @@ const ROSfields : ROSFields = {
 		name : 'RosBridge Server Port',
 		input : 'number',
 		type : 'integer',
-		default : 8000,
+		default : 9090,
 		description : 'Port number of remote RosBridge server for Unity to connect to as a client.'
 	},
 	voice : {

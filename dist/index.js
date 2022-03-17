@@ -38,7 +38,9 @@ function generateSpaceStationServer() {
         tubeOnDecayRate: getValue('tubeOnDecayRate'),
         tubeOffDecayRate: getValue('tubeOffDecayRate'),
         tubeRepairRate: getValue('tubeRepairRate'),
-        stationNotifications: getValue('stationNotifications')
+        stationNotifications: getValue('stationNotifications'),
+        DIARC: getDIARC(),
+        trials: getTrials()
     };
     return settings;
 }
@@ -57,28 +59,112 @@ function generateSpaceStationClient() {
     };
     return settings;
 }
+function getDIARC() {
+    const diarcs = document.querySelectorAll('.diarc');
+    const d = [];
+    let diarcIndex = 0;
+    diarcs.forEach((diarcElem) => {
+        const dElem = {
+            port: getAnyValue(`port_${diarcIndex}`, 'integer'),
+            ROS: getROS(diarcIndex)
+        };
+        d.push(dElem);
+        diarcIndex++;
+    });
+    return d;
+}
+function getROS(diarcIndex) {
+    const ross = document.querySelectorAll(`#ross_${diarcIndex} .ros`);
+    const r = [];
+    let rosIndex = 0;
+    ross.forEach((rosElem) => {
+        const rElem = {
+            model: getAnyValue(`model_${diarcIndex}_${rosIndex}`, 'string'),
+            IP: getAnyValue(`IP_${diarcIndex}_${rosIndex}`, 'string'),
+            port: getAnyValue(`port_${diarcIndex}_${rosIndex}`, 'integer'),
+            voice: getAnyValue(`voice_${diarcIndex}_${rosIndex}`, 'string')
+        };
+        r.push(rElem);
+        rosIndex++;
+    });
+    return r;
+}
+function getTrials() {
+    const trials = document.querySelectorAll(`#trials .trial`);
+    const t = [];
+    let trialIndex = 0;
+    trials.forEach((trialElem) => {
+        const tElem = {
+            seconds: getAnyValue(`seconds_${trialIndex}`, 'integer'),
+            robots: getAnyValue(`robots_${trialIndex}`, 'integer'),
+            survey: getAnyValue(`survey_${trialIndex}`, 'boolean'),
+            tubes: getTubes(trialIndex),
+            rovers: getRovers(trialIndex)
+        };
+        t.push(tElem);
+        trialIndex++;
+    });
+    return t;
+}
+function getTubes(trialIndex) {
+    const tubes = document.querySelectorAll(`#trial_${trialIndex} .tube`);
+    const t = [];
+    let tubeIndex = 0;
+    tubes.forEach((tubeElem) => {
+        const tElem = {
+            time: getAnyValue(`tube_${trialIndex}_${tubeIndex}_time`, 'integer')
+        };
+        const tubeVal = getAnyValue(`tube_${trialIndex}_${tubeIndex}_tube`, 'string');
+        if (tubeVal !== "") {
+            tElem.tube = tubeVal;
+        }
+        t.push(tElem);
+        tubeIndex++;
+    });
+    return t;
+}
+function getRovers(trialIndex) {
+    const rovers = document.querySelectorAll(`#trial_${trialIndex} .rover`);
+    const r = [];
+    let roverIndex = 0;
+    rovers.forEach((roverElem) => {
+        const rElem = {
+            time: getAnyValue(`rover_${trialIndex}_${roverIndex}_time`, 'integer')
+        };
+        const roverVal = getAnyValue(`rover_${trialIndex}_${roverIndex}_position`, 'string');
+        if (roverVal !== "") {
+            rElem.position = roverVal;
+        }
+        r.push(rElem);
+        roverIndex++;
+    });
+    return r;
+}
 function getValue(key) {
     //@ts-ignore
     const field = fields[key];
-    const valueElem = document.getElementById(key);
+    return getAnyValue(key, field.type);
+}
+function getAnyValue(id, type) {
+    const valueElem = document.getElementById(id);
     const value = valueElem.value;
     let str;
     let num;
     let bool;
-    if (field.type === 'string') {
+    if (type === 'string') {
         str = value;
         return str;
     }
-    else if (field.type === 'float') {
+    else if (type === 'float') {
         num = parseFloat(value);
         return num;
     }
-    else if (field.type === 'integer') {
+    else if (type === 'integer') {
         num = parseInt(value);
         return num;
     }
-    else if (field.type === 'boolean') {
-        bool = document.getElementById(key).checked;
+    else if (type === 'boolean') {
+        bool = document.getElementById(id).checked;
         return bool;
     }
     return value;
@@ -91,7 +177,7 @@ function downloadServer() {
     const settings = generateSpaceStationServer();
     download(settings, 'server_settings.json');
 }
-function createField(key, parent, fieldsArr, index = -1) {
+function createField(key, parent, fieldsArr, index = -1, index2 = -1) {
     //@ts-ignore
     const field = fieldsArr[key];
     const hr = document.createElement('hr');
@@ -100,6 +186,9 @@ function createField(key, parent, fieldsArr, index = -1) {
     let descriptionText;
     if (index > -1) {
         key += `_${index}`;
+    }
+    if (index2 > -1) {
+        key += `_${index2}`;
     }
     label.innerHTML = field.name;
     parent.appendChild(label);
@@ -125,8 +214,7 @@ function createInput(key, field, parent) {
     inputElem.setAttribute('name', key);
     inputElem.setAttribute('placeholder', `${field.name}...`);
     inputElem.onchange = function () {
-        state.created = new Date();
-        state.id = uuid();
+        updateState();
     };
     if (field.input === 'checkbox') {
         if (field.default === true) {
@@ -153,8 +241,7 @@ function createSelect(key, field, parent) {
         selectElem.appendChild(optionElem);
     }
     selectElem.onchange = function () {
-        state.created = new Date();
-        state.id = uuid();
+        updateState();
     };
     parent.appendChild(selectElem);
 }
@@ -172,19 +259,77 @@ function createButtons() {
 function createDIARCSection(parent) {
     const section = document.createElement('div');
     const header = document.createElement('h2');
-    const keys = Object.keys(DIARCfields);
+    const buttonsElem = document.createElement('div');
+    const addButton = document.createElement('button');
+    const removeButton = document.createElement('button');
+    const hr = document.createElement('hr');
     section.id = 'diarc';
     header.innerHTML = 'DIARC';
     section.appendChild(header);
-    for (let key of keys) {
-        createField(key, section, DIARCfields);
-    }
+    section.appendChild(hr);
+    createDIARCElement(section);
     parent.appendChild(section);
 }
 function createDIARCElement(parent) {
+    const keys = Object.keys(DIARCfields);
+    const diarcElem = document.createElement('div');
+    const header = document.createElement('h3');
+    diarcElem.classList.add('diarc');
     state.diarc.lastCreated++;
-    //section.id = `diarc_${state.diarc.lastCreated}`
-    //diarcs.push({ id : section.id });
+    diarcElem.id = `diarc_${state.diarc.lastCreated}`;
+    header.innerHTML = `DIARC #${state.trials.lastCreated + 1}`;
+    diarcElem.appendChild(header);
+    for (let key of keys) {
+        createField(key, diarcElem, DIARCfields, state.diarc.lastCreated);
+    }
+    createROSSection(diarcElem, state.diarc.lastCreated);
+    parent.appendChild(diarcElem);
+}
+function createROSSection(parent, diarcIndex) {
+    const rossElem = document.createElement('div');
+    const header = document.createElement('h3');
+    const buttonsElem = document.createElement('div');
+    const addButton = document.createElement('button');
+    const removeButton = document.createElement('button');
+    const hr = document.createElement('hr');
+    rossElem.id = `ross_${diarcIndex}`;
+    header.innerHTML = `ROS Instances`;
+    addButton.innerHTML = 'Add ROS instance';
+    addButton.onclick = function (event) {
+        event.preventDefault();
+        createROSElement(document.getElementById(`ross_${diarcIndex}`), diarcIndex);
+        return false;
+    };
+    removeButton.innerHTML = 'Remove ROS instance';
+    removeButton.onclick = function (event) {
+        event.preventDefault();
+        removeROSElement(diarcIndex);
+        return false;
+    };
+    buttonsElem.appendChild(addButton);
+    buttonsElem.appendChild(removeButton);
+    parent.appendChild(header);
+    parent.appendChild(hr);
+    parent.appendChild(rossElem);
+    parent.appendChild(buttonsElem);
+    createROSElement(rossElem, diarcIndex);
+}
+function createROSElement(parent, diarcIndex) {
+    const rosElem = document.createElement('div');
+    const header = document.createElement('h3');
+    const keys = Object.keys(ROSfields);
+    let rosIndex;
+    let key;
+    rosElem.classList.add('ros');
+    rosIndex = parent.querySelectorAll('.ros').length;
+    header.innerHTML = `ROS Instance #${rosIndex + 1}`;
+    key = `ros_${diarcIndex}_${rosIndex}`;
+    rosElem.id = key;
+    rosElem.appendChild(header);
+    for (let key of keys) {
+        createField(key, rosElem, ROSfields, state.diarc.lastCreated, rosIndex);
+    }
+    parent.appendChild(rosElem);
 }
 function createTrialsSection(parent) {
     const section = document.createElement('div');
@@ -237,6 +382,7 @@ function createTubesSection(parent, trialIndex) {
     const buttonsElem = document.createElement('div');
     const addButton = document.createElement('button');
     const removeButton = document.createElement('button');
+    const hr = document.createElement('hr');
     const trial = trialIndex + 0;
     tubesElem.id = `tubes_${trialIndex}`;
     header.innerHTML = 'Tube Break Events';
@@ -249,10 +395,13 @@ function createTubesSection(parent, trialIndex) {
     removeButton.innerHTML = 'Remove tube event';
     removeButton.onclick = function (event) {
         event.preventDefault();
+        removeTubeElement(trialIndex);
+        return false;
     };
     buttonsElem.appendChild(addButton);
     buttonsElem.appendChild(removeButton);
     parent.appendChild(header);
+    parent.appendChild(hr);
     parent.appendChild(tubesElem);
     parent.appendChild(buttonsElem);
 }
@@ -278,9 +427,15 @@ function createTubeElement(trialIndex) {
     tubeTime.placeholder = 'Time in seconds';
     tubeTime.id = `${key}_time`;
     tubeTime.name = `${key}_time`;
+    tubeTime.onchange = function () {
+        updateState();
+    };
     tubeElem.appendChild(tubeTime);
     tubeTube.id = `${key}_tube`;
     tubeTube.name = `${key}_tube`;
+    tubeTube.onchange = function () {
+        updateState();
+    };
     option = document.createElement('option');
     option.innerHTML = "Random";
     option.value = "";
@@ -319,6 +474,7 @@ function createRoversSection(parent, trialIndex) {
     removeButton.innerHTML = 'Remove rover event';
     removeButton.onclick = function (event) {
         event.preventDefault();
+        removeRoverElement(trialIndex);
         return false;
     };
     buttonsElem.appendChild(addButton);
@@ -349,9 +505,15 @@ function createRoverElement(trialIndex) {
     roverTime.placeholder = 'Time in seconds';
     roverTime.id = `${key}_time`;
     roverTime.name = `${key}_time`;
+    roverTime.onchange = function () {
+        updateState();
+    };
     roverElem.appendChild(roverTime);
     roverPosition.id = `${key}_position`;
     roverPosition.name = `${key}_position`;
+    roverPosition.onchange = function () {
+        updateState();
+    };
     option = document.createElement('option');
     option.innerHTML = "Random";
     option.value = "";
@@ -378,15 +540,43 @@ function removeTrialElement() {
         state.trials.lastCreated--;
     }
 }
+function removeTubeElement(trialIndex) {
+    const tubes = document.querySelectorAll(`#tubes_${trialIndex} .tube`);
+    let key;
+    if (tubes.length > 0) {
+        key = `tube_${trialIndex}_${tubes.length - 1}`;
+        document.getElementById(key).remove();
+    }
+}
+function removeRoverElement(trialIndex) {
+    const rovers = document.querySelectorAll(`#rovers_${trialIndex} .rover`);
+    let key;
+    if (rovers.length > 0) {
+        key = `rover_${trialIndex}_${rovers.length - 1}`;
+        document.getElementById(key).remove();
+    }
+}
+function removeROSElement(diarcIndex) {
+    const ross = document.querySelectorAll(`#diarc_${diarcIndex} .ros`);
+    let key;
+    if (ross.length > 0) {
+        key = `ros_${diarcIndex}_${ross.length - 1}`;
+        document.getElementById(key).remove();
+    }
+}
 function createForm() {
     const keys = Object.keys(fields);
     const parent = document.getElementById('settings');
     for (let key of keys) {
         createField(key, parent, fields);
     }
-    //createDIARCSection(parent);
+    createDIARCSection(parent);
     createTrialsSection(parent);
     createButtons();
+}
+function updateState() {
+    state.created = new Date();
+    state.id = uuid();
 }
 const state = {
     created: new Date(),

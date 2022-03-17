@@ -13,11 +13,8 @@ interface SpaceStationServerSettings {
 
 	stationNotifications : boolean;
 
-	ade_ip? : string;
-	ade_port? : number;
-
-	ros_ip? : string;
-	ros_port? : number;
+	DIARC? : any;
+	trials? : any;
 }
 
 interface SpaceStationClientSettings {
@@ -76,7 +73,9 @@ function generateSpaceStationServer () : SpaceStationServerSettings {
 		tubeOnDecayRate : getValue('tubeOnDecayRate'),
 		tubeOffDecayRate : getValue('tubeOffDecayRate'),
 		tubeRepairRate : getValue('tubeRepairRate'),
-		stationNotifications : getValue('stationNotifications')
+		stationNotifications : getValue('stationNotifications'),
+		DIARC : getDIARC(),
+		trials : getTrials()
 	};
 	return settings;
 }
@@ -97,27 +96,121 @@ function generateSpaceStationClient () : SpaceStationClientSettings {
 	return settings;
 }
 
+function getDIARC () {
+	const diarcs : NodeListOf<HTMLElement> = document.querySelectorAll('.diarc');
+	const d : any[] = [];
+	let diarcIndex : number = 0;
+	diarcs.forEach((diarcElem : HTMLElement) => {
+		const dElem : any = {
+			port : getAnyValue(`port_${diarcIndex}`, 'integer'),
+			ROS : getROS(diarcIndex)
+		};
+		d.push(dElem);
+		diarcIndex++;
+	});
+	return d;
+}
+
+function getROS (diarcIndex : number) {
+	const ross : NodeListOf<HTMLElement> = document.querySelectorAll(`#ross_${diarcIndex} .ros`);
+	const r : any[] = [];
+	let rosIndex = 0;
+	ross.forEach((rosElem : HTMLElement) => {
+		const rElem : any = {
+			model : getAnyValue(`model_${diarcIndex}_${rosIndex}`, 'string'),
+			IP :  getAnyValue(`IP_${diarcIndex}_${rosIndex}`, 'string'),
+			port : getAnyValue(`port_${diarcIndex}_${rosIndex}`, 'integer'),
+			voice : getAnyValue(`voice_${diarcIndex}_${rosIndex}`, 'string')
+		};
+		r.push(rElem);
+		rosIndex++;
+	});
+
+	return r;
+}
+
+function getTrials () {
+	const trials : NodeListOf<HTMLElement> = document.querySelectorAll(`#trials .trial`);
+	const t : any[] = [];
+	let trialIndex = 0;
+	trials.forEach((trialElem : HTMLElement) => {
+		const tElem : any = {
+			seconds : getAnyValue(`seconds_${trialIndex}`, 'integer'),
+			robots : getAnyValue(`robots_${trialIndex}`, 'integer'),
+			survey : getAnyValue(`survey_${trialIndex}`, 'boolean'),
+			tubes : getTubes(trialIndex),
+			rovers : getRovers(trialIndex)
+		};
+		t.push(tElem);
+		trialIndex++;
+	});
+
+	return t;
+}
+
+function getTubes (trialIndex : number) {
+	const tubes : NodeListOf<HTMLElement> = document.querySelectorAll(`#trial_${trialIndex} .tube`);
+	const t : any[] = [];
+	let tubeIndex : number = 0;
+	tubes.forEach((tubeElem : HTMLElement) => {
+		const tElem : any = {
+			time : getAnyValue(`tube_${trialIndex}_${tubeIndex}_time`, 'integer')
+		};
+		const tubeVal : any = getAnyValue(`tube_${trialIndex}_${tubeIndex}_tube`, 'string');
+		if (tubeVal !== "") {
+			tElem.tube = tubeVal;
+		}
+		t.push(tElem);
+		tubeIndex++;
+	});
+
+	return t;
+}
+
+function getRovers (trialIndex : number) {
+	const rovers : NodeListOf<HTMLElement> = document.querySelectorAll(`#trial_${trialIndex} .rover`);
+	const r : any[] = [];
+	let roverIndex : number = 0;
+	rovers.forEach((roverElem : HTMLElement) => {
+		const rElem : any = {
+			time : getAnyValue(`rover_${trialIndex}_${roverIndex}_time`, 'integer')
+		};
+		const roverVal : any = getAnyValue(`rover_${trialIndex}_${roverIndex}_position`, 'string');
+		if (roverVal !== "") {
+			rElem.position = roverVal;
+		}
+		r.push(rElem);
+		roverIndex++;
+	});
+
+	return r;
+}
+
 function getValue (key : string) : any {
 	//@ts-ignore
 	const field : any = fields[key];
-	const valueElem : HTMLInputElement = document.getElementById(key) as HTMLInputElement;
+	return getAnyValue(key, field.type);
+}
+
+function getAnyValue (id : string, type : string) {
+	const valueElem : HTMLInputElement = document.getElementById(id) as HTMLInputElement;
 	const value : string = valueElem.value;
 
 	let str : string;
 	let num : number; 
 	let bool : boolean;
 
-	if (field.type === 'string') {
+	if (type === 'string') {
 		str = value;
 		return str;
-	} else if (field.type === 'float') {
+	} else if (type === 'float') {
 		num = parseFloat(value);
 		return num;
-	} else if (field.type === 'integer') {
+	} else if (type === 'integer') {
 		num = parseInt(value);
 		return num;
-	} else if (field.type === 'boolean') {
-		bool = (document.getElementById(key) as HTMLInputElement).checked;
+	} else if (type === 'boolean') {
+		bool = (document.getElementById(id) as HTMLInputElement).checked;
 		return bool;
 	}
 
@@ -134,7 +227,7 @@ function downloadServer () {
 	download(settings, 'server_settings.json');
 }
 
-function createField (key : string, parent : HTMLElement, fieldsArr : any, index : number = -1) {
+function createField (key : string, parent : HTMLElement, fieldsArr : any, index : number = -1, index2 : number = -1) {
 	//@ts-ignore
 	const field : any = fieldsArr[key];
 	const hr : HTMLElement = document.createElement('hr');
@@ -144,6 +237,9 @@ function createField (key : string, parent : HTMLElement, fieldsArr : any, index
 
 	if (index > -1) {
 		key += `_${index}`;
+	}
+	if (index2 > -1) {
+		key += `_${index2}`;
 	}
 
 	label.innerHTML = field.name;
@@ -175,8 +271,7 @@ function createInput (key : string, field : Field, parent : HTMLElement) {
 	inputElem.setAttribute('placeholder', `${field.name}...`);
 
 	inputElem.onchange = function () {
-		state.created = new Date();
-		state.id = uuid();
+		updateState();
 	}
 
 	if (field.input === 'checkbox') {
@@ -210,8 +305,7 @@ function createSelect (key : string, field : Field, parent : HTMLElement) {
 	}
 
 	selectElem.onchange = function () {
-		state.created = new Date();
-		state.id = uuid();
+		updateState();
 	}
 
 	parent.appendChild(selectElem);
@@ -233,23 +327,103 @@ function createButtons () {
 function createDIARCSection (parent : HTMLElement) {
 	const section : HTMLElement = document.createElement('div');
 	const header : HTMLHeadElement = document.createElement('h2');
-	const keys : string[] = Object.keys(DIARCfields);
-
+	const buttonsElem : HTMLElement = document.createElement('div');
+	const addButton : HTMLButtonElement = document.createElement('button') as HTMLButtonElement;
+	const removeButton : HTMLButtonElement = document.createElement('button') as HTMLButtonElement;
+	const hr : HTMLElement = document.createElement('hr');
+	
 	section.id = 'diarc';
 	header.innerHTML = 'DIARC';
 	section.appendChild(header);
+	section.appendChild(hr);
 
-	for (let key of keys) {
-		createField(key, section, DIARCfields);
-	}
+	createDIARCElement(section);
 
 	parent.appendChild(section);
 }
 
 function createDIARCElement (parent : HTMLElement) {
+	const keys : string[] = Object.keys(DIARCfields);
+	const diarcElem : HTMLElement = document.createElement('div');
+	const header : HTMLHeadElement = document.createElement('h3');
+
+	diarcElem.classList.add('diarc');
+
 	state.diarc.lastCreated++;
-	//section.id = `diarc_${state.diarc.lastCreated}`
-	//diarcs.push({ id : section.id });
+
+	diarcElem.id = `diarc_${state.diarc.lastCreated}`;
+	header.innerHTML = `DIARC #${state.trials.lastCreated + 1}`;
+
+	diarcElem.appendChild(header);
+
+	for (let key of keys) {
+		createField(key, diarcElem, DIARCfields, state.diarc.lastCreated);
+	}
+
+	createROSSection(diarcElem, state.diarc.lastCreated);
+
+	parent.appendChild(diarcElem);
+}
+
+function createROSSection (parent : HTMLElement, diarcIndex : number) {
+	const rossElem : HTMLElement = document.createElement('div');
+	const header : HTMLHeadElement = document.createElement('h3');
+	const buttonsElem : HTMLElement = document.createElement('div');
+	const addButton : HTMLButtonElement = document.createElement('button') as HTMLButtonElement;
+	const removeButton : HTMLButtonElement = document.createElement('button') as HTMLButtonElement;
+	const hr : HTMLElement = document.createElement('hr');
+
+	rossElem.id = `ross_${diarcIndex}`;
+
+	header.innerHTML = `ROS Instances`;
+
+	addButton.innerHTML = 'Add ROS instance';
+	addButton.onclick = function (event : Event) {
+		event.preventDefault();
+		createROSElement(document.getElementById(`ross_${diarcIndex}`), diarcIndex);
+		return false;
+	}
+
+	removeButton.innerHTML = 'Remove ROS instance';
+	removeButton.onclick = function (event : Event) {
+		event.preventDefault();
+		removeROSElement(diarcIndex);
+		return false;
+	};
+
+	buttonsElem.appendChild(addButton);
+	buttonsElem.appendChild(removeButton);
+
+	parent.appendChild(header);
+	parent.appendChild(hr);
+	parent.appendChild(rossElem);
+	parent.appendChild(buttonsElem);
+
+	createROSElement(rossElem, diarcIndex);
+}
+
+function createROSElement (parent : HTMLElement, diarcIndex : number) {
+	const rosElem : HTMLElement = document.createElement('div');
+	const header : HTMLHeadElement = document.createElement('h3');
+	const keys : string[] = Object.keys(ROSfields);
+	let rosIndex : number;
+	let key : string;
+
+	rosElem.classList.add('ros');
+	rosIndex = parent.querySelectorAll('.ros').length;
+
+	header.innerHTML = `ROS Instance #${rosIndex + 1}`;
+
+	key = `ros_${diarcIndex}_${rosIndex}`;
+	rosElem.id = key;
+
+	rosElem.appendChild(header);
+
+	for (let key of keys) {
+		createField(key, rosElem, ROSfields, state.diarc.lastCreated, rosIndex);
+	}
+
+	parent.appendChild(rosElem);
 }
 
 function createTrialsSection (parent : HTMLElement) {
@@ -319,6 +493,7 @@ function createTubesSection (parent : HTMLElement, trialIndex : number) {
 	const buttonsElem : HTMLElement = document.createElement('div');
 	const addButton : HTMLButtonElement = document.createElement('button') as HTMLButtonElement;
 	const removeButton : HTMLButtonElement = document.createElement('button') as HTMLButtonElement;
+	const hr : HTMLElement = document.createElement('hr');
 	const trial : number = trialIndex + 0;
 
 	tubesElem.id = `tubes_${trialIndex}`;
@@ -334,12 +509,15 @@ function createTubesSection (parent : HTMLElement, trialIndex : number) {
 	removeButton.innerHTML = 'Remove tube event';
 	removeButton.onclick = function (event : Event) {
 		event.preventDefault();
+		removeTubeElement(trialIndex);
+		return false;
 	};
 
 	buttonsElem.appendChild(addButton);
 	buttonsElem.appendChild(removeButton);
 
 	parent.appendChild(header);
+	parent.appendChild(hr);
 	parent.appendChild(tubesElem);
 	parent.appendChild(buttonsElem);
 }
@@ -371,11 +549,17 @@ function createTubeElement (trialIndex : number) {
 	tubeTime.placeholder = 'Time in seconds';
 	tubeTime.id = `${key}_time`;
 	tubeTime.name = `${key}_time`;
+	tubeTime.onchange = function () {
+		updateState();
+	}
 
 	tubeElem.appendChild(tubeTime);
 
 	tubeTube.id = `${key}_tube`;
 	tubeTube.name = `${key}_tube`;
+	tubeTube.onchange = function () {
+		updateState();
+	}
 	option = document.createElement('option') as HTMLOptionElement;
 	option.innerHTML = "Random";
 	option.value = "";
@@ -422,7 +606,7 @@ function createRoversSection (parent : HTMLElement, trialIndex : number) {
 	removeButton.innerHTML = 'Remove rover event';
 	removeButton.onclick = function (event : Event) {
 		event.preventDefault();
-
+		removeRoverElement(trialIndex);
 		return false;
 	};
 
@@ -461,11 +645,17 @@ function createRoverElement (trialIndex : number) {
 	roverTime.placeholder = 'Time in seconds';
 	roverTime.id = `${key}_time`;
 	roverTime.name = `${key}_time`;
+	roverTime.onchange = function () {
+		updateState();
+	}
 
 	roverElem.appendChild(roverTime);
 
 	roverPosition.id = `${key}_position`;
 	roverPosition.name = `${key}_position`;
+	roverPosition.onchange = function () {
+		updateState();
+	}
 	option = document.createElement('option') as HTMLOptionElement;
 	option.innerHTML = "Random";
 	option.value = "";
@@ -498,6 +688,33 @@ function removeTrialElement () {
 	}
 }
 
+function removeTubeElement (trialIndex : number) {
+	const tubes : NodeListOf<HTMLElement> = document.querySelectorAll<HTMLElement>(`#tubes_${trialIndex} .tube`);
+	let key : string;
+	if (tubes.length > 0) {
+		key = `tube_${trialIndex}_${tubes.length - 1}`;
+		document.getElementById(key).remove();
+	}
+}
+
+function removeRoverElement (trialIndex : number) {
+	const rovers : NodeListOf<HTMLElement> = document.querySelectorAll<HTMLElement>(`#rovers_${trialIndex} .rover`);
+	let key : string;
+	if (rovers.length > 0) {
+		key = `rover_${trialIndex}_${rovers.length - 1}`;
+		document.getElementById(key).remove();
+	}
+}
+
+function removeROSElement (diarcIndex : number) {
+	const ross : NodeListOf<HTMLElement> = document.querySelectorAll<HTMLElement>(`#diarc_${diarcIndex} .ros`);
+	let key : string;
+	if (ross.length > 0) {
+		key = `ros_${diarcIndex}_${ross.length - 1}`;
+		document.getElementById(key).remove();
+	}
+}
+
 function createForm () {
 	const keys : string[] = Object.keys(fields);
 	const parent : HTMLElement = document.getElementById('settings');
@@ -506,10 +723,15 @@ function createForm () {
 		createField(key, parent, fields);
 	}
 
-	//createDIARCSection(parent);
+	createDIARCSection(parent);
 	createTrialsSection(parent);
 	
 	createButtons();
+}
+
+function updateState () {
+	state.created = new Date();
+	state.id = uuid();
 }
 
 const state : any = {
