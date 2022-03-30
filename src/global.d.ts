@@ -16,6 +16,7 @@ interface Fields {
 	tubeOffDecayRate : Field;
 	tubeRepairRate : Field;
 	stationNotifications : Field;
+	calibrateEyeTracker : Field;
 }
 
 interface DIARCFields {

@@ -55,7 +55,8 @@ function generateSpaceStationClient() {
         movementHopDistance: getValue('movementHopDistance'),
         tubeOnDecayRate: getValue('tubeOnDecayRate'),
         tubeOffDecayRate: getValue('tubeOffDecayRate'),
-        tubeRepairRate: getValue('tubeRepairRate')
+        tubeRepairRate: getValue('tubeRepairRate'),
+        calibrateEyeTracker: getValue('calibrateEyeTracker')
     };
     return settings;
 }

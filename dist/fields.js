@@ -55,6 +55,13 @@ const fields = {
         type: 'boolean',
         default: true,
         description: 'Whether the space station should audibly announce tube breakages and rover events.'
+    },
+    calibrateEyeTracker: {
+        name: 'Calibrate Eye Tracker',
+        input: 'checkbox',
+        type: 'boolean',
+        default: true,
+        description: 'Whether to launch the SRanipal eye tracker calibration process on startup.'
     }
 };
 const DIARCfields = {

@@ -30,6 +30,8 @@ interface SpaceStationClientSettings {
 	tubeOnDecayRate : number;
 	tubeOffDecayRate : number;
 	tubeRepairRate : number;
+
+	calibrateEyeTracker : boolean;
 }
 
 function capitalizeFirstLetter (str : string) {
@@ -91,7 +93,8 @@ function generateSpaceStationClient () : SpaceStationClientSettings {
 		movementHopDistance : getValue('movementHopDistance'),
 		tubeOnDecayRate : getValue('tubeOnDecayRate'),
 		tubeOffDecayRate : getValue('tubeOffDecayRate'),
-		tubeRepairRate : getValue('tubeRepairRate')
+		tubeRepairRate : getValue('tubeRepairRate'),
+		calibrateEyeTracker : getValue('calibrateEyeTracker')
 	};
 	return settings;
 }
