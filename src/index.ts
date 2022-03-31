@@ -668,13 +668,15 @@ function createRoverElement (trialIndex : number) {
 
 	roverPosition.appendChild(option);
 
-	for (let col of roversLabels.cols) {
-		for (let i = 0; i < roversLabels.rows; i++) {
-			rowNumber = i + 1;
-			option = document.createElement('option') as HTMLOptionElement;
-			option.innerHTML = `${col}${rowNumber}`;
-			option.value = `${col}:${rowNumber}`;
-			roverPosition.appendChild(option);
+	for (let type of roversLabels.types) {
+		for (let col of roversLabels.cols) {
+			for (let i = 0; i < roversLabels.rows; i++) {
+				rowNumber = i + 1;
+				option = document.createElement('option') as HTMLOptionElement;
+				option.innerHTML = `${type} ${col}${rowNumber}`;
+				option.value = `${type}:${col}:${rowNumber}`;
+				roverPosition.appendChild(option);
+			}
 		}
 	}
 

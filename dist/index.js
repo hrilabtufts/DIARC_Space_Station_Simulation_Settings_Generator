@@ -521,13 +521,15 @@ function createRoverElement(trialIndex) {
     option.value = "";
     option.selected = true;
     roverPosition.appendChild(option);
-    for (let col of roversLabels.cols) {
-        for (let i = 0; i < roversLabels.rows; i++) {
-            rowNumber = i + 1;
-            option = document.createElement('option');
-            option.innerHTML = `${col}${rowNumber}`;
-            option.value = `${col}:${rowNumber}`;
-            roverPosition.appendChild(option);
+    for (let type of roversLabels.types) {
+        for (let col of roversLabels.cols) {
+            for (let i = 0; i < roversLabels.rows; i++) {
+                rowNumber = i + 1;
+                option = document.createElement('option');
+                option.innerHTML = `${type} ${col}${rowNumber}`;
+                option.value = `${type}:${col}:${rowNumber}`;
+                roverPosition.appendChild(option);
+            }
         }
     }
     roverElem.appendChild(roverPosition);

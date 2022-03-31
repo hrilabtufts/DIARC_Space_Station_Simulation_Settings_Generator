@@ -137,17 +137,18 @@ const trialFields = {
 };
 const tubeLabels = {
     wings: [
-        "Alpha",
-        "Beta",
-        "Gamma"
+        'Alpha',
+        'Beta',
+        'Gamma'
     ],
     sides: [
-        "Left",
-        "Right"
+        'Left',
+        'Right'
     ],
     tubeCount: 12
 };
 const roversLabels = {
+    types: ['radiation', 'basalt', 'volcanic', 'sandstone'],
     cols: ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S'],
     rows: 19
 };
