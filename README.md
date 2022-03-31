@@ -10,3 +10,8 @@ The `src/index.ts` file needs to be updated to include new settings in either th
 
 Server settings and client setting should be downloaded together to ensure sync between the client and server and matching `id` attributes.
 
+# Demo
+
+Accessible in-lab only: 
+
+### [http://192.168.0.171](http://192.168.0.171)
