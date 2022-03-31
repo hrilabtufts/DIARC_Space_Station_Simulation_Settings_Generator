@@ -449,7 +449,7 @@ function createTubeElement(trialIndex) {
                 tubeNumber = i + 1;
                 option = document.createElement('option');
                 option.innerHTML = `${wing} ${side} ${tubeNumber}`;
-                option.value = `${wing[0]}:${side[0]}:${tubeNumber}`;
+                option.value = `${wing}:${side[0]}:${tubeNumber}`;
                 tubeTube.appendChild(option);
             }
         }

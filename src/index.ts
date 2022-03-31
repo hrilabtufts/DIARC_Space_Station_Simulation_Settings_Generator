@@ -578,7 +578,7 @@ function createTubeElement (trialIndex : number) {
 				tubeNumber = i + 1;
 				option = document.createElement('option') as HTMLOptionElement;
 				option.innerHTML = `${wing} ${side} ${tubeNumber}`;
-				option.value = `${wing[0]}:${side[0]}:${tubeNumber}`;
+				option.value = `${wing}:${side[0]}:${tubeNumber}`;
 				tubeTube.appendChild(option);
 			}
 		}
@@ -606,7 +606,7 @@ function createRoversSection (parent : HTMLElement, trialIndex : number) {
 		event.preventDefault();
 		createRoverElement(trialIndex);
 		return false;
-	}
+	};
 
 	removeButton.innerHTML = 'Remove rover event';
 	removeButton.onclick = function (event : Event) {
