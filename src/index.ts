@@ -12,6 +12,7 @@ interface SpaceStationServerSettings {
 	tubeRepairRate : number;
 
 	stationNotifications : boolean;
+	truncateRepairStatements : boolean;
 
 	DIARC? : any;
 	trials? : any;
@@ -76,6 +77,7 @@ function generateSpaceStationServer () : SpaceStationServerSettings {
 		tubeOffDecayRate : getValue('tubeOffDecayRate'),
 		tubeRepairRate : getValue('tubeRepairRate'),
 		stationNotifications : getValue('stationNotifications'),
+		truncateRepairStatements : getValue('truncateRepairStatements'),
 		DIARC : getDIARC(),
 		trials : getTrials()
 	};

@@ -56,6 +56,13 @@ const fields = {
         default: true,
         description: 'Whether the space station should audibly announce tube breakages and rover events.'
     },
+    truncateRepairStatements: {
+        name: 'Truncate Player Repair Statements',
+        input: 'checkbox',
+        type: 'boolean',
+        default: true,
+        description: 'Whether to truncate all statements made by players containing the word "repair".'
+    },
     calibrateEyeTracker: {
         name: 'Calibrate Eye Tracker',
         input: 'checkbox',
