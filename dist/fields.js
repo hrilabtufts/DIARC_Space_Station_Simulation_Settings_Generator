@@ -69,6 +69,13 @@ const fields = {
         type: 'boolean',
         default: true,
         description: 'Whether to launch the SRanipal eye tracker calibration process on startup.'
+    },
+    useLSL: {
+        name: 'Use Labstreaminglayer (LSL)',
+        input: 'checkbox',
+        type: 'boolean',
+        default: true,
+        description: 'Whether to use LSL to capture data streams. False will write to files.'
     }
 };
 const DIARCfields = {

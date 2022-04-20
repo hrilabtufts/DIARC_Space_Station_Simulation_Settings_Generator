@@ -40,6 +40,7 @@ function generateSpaceStationServer() {
         tubeRepairRate: getValue('tubeRepairRate'),
         stationNotifications: getValue('stationNotifications'),
         truncateRepairStatements: getValue('truncateRepairStatements'),
+        useLSL: getValue('useLSL'),
         DIARC: getDIARC(),
         trials: getTrials()
     };
@@ -57,7 +58,8 @@ function generateSpaceStationClient() {
         tubeOnDecayRate: getValue('tubeOnDecayRate'),
         tubeOffDecayRate: getValue('tubeOffDecayRate'),
         tubeRepairRate: getValue('tubeRepairRate'),
-        calibrateEyeTracker: getValue('calibrateEyeTracker')
+        calibrateEyeTracker: getValue('calibrateEyeTracker'),
+        useLSL: getValue('useLSL'),
     };
     return settings;
 }

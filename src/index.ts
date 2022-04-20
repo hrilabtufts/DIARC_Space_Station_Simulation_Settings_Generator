@@ -13,6 +13,7 @@ interface SpaceStationServerSettings {
 
 	stationNotifications : boolean;
 	truncateRepairStatements : boolean;
+	useLSL : boolean;
 
 	DIARC? : any;
 	trials? : any;
@@ -33,6 +34,7 @@ interface SpaceStationClientSettings {
 	tubeRepairRate : number;
 
 	calibrateEyeTracker : boolean;
+	useLSL : boolean;
 }
 
 function capitalizeFirstLetter (str : string) {
@@ -78,6 +80,7 @@ function generateSpaceStationServer () : SpaceStationServerSettings {
 		tubeRepairRate : getValue('tubeRepairRate'),
 		stationNotifications : getValue('stationNotifications'),
 		truncateRepairStatements : getValue('truncateRepairStatements'),
+		useLSL : getValue('useLSL'),
 		DIARC : getDIARC(),
 		trials : getTrials()
 	};
@@ -96,7 +99,8 @@ function generateSpaceStationClient () : SpaceStationClientSettings {
 		tubeOnDecayRate : getValue('tubeOnDecayRate'),
 		tubeOffDecayRate : getValue('tubeOffDecayRate'),
 		tubeRepairRate : getValue('tubeRepairRate'),
-		calibrateEyeTracker : getValue('calibrateEyeTracker')
+		calibrateEyeTracker : getValue('calibrateEyeTracker'),
+		useLSL : getValue('useLSL'),
 	};
 	return settings;
 }

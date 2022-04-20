@@ -18,6 +18,7 @@ interface Fields {
 	stationNotifications : Field;
 	truncateRepairStatements : Field;
 	calibrateEyeTracker : Field;
+	useLSL : Field;
 }
 
 interface DIARCFields {
