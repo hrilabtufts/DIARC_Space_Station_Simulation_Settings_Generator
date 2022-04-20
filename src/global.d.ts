@@ -10,6 +10,7 @@ interface Field {
 interface Fields {
 	name : Field;
 	room : Field;
+	maxPlayers : Field;
 	movementType : Field;
 	movementHopDistance : Field;
 	tubeOnDecayRate : Field;

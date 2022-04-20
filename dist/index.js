@@ -35,6 +35,7 @@ function generateSpaceStationServer() {
         name: getValue('name'),
         type: 'server',
         room: getValue('room'),
+        maxPlayers: getValue('maxPlayers'),
         tubeOnDecayRate: getValue('tubeOnDecayRate'),
         tubeOffDecayRate: getValue('tubeOffDecayRate'),
         tubeRepairRate: getValue('tubeRepairRate'),

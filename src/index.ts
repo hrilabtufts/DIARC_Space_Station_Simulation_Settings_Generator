@@ -6,6 +6,7 @@ interface SpaceStationServerSettings {
 	name : string;
 	type : string;
 	room : string;
+	maxPlayers : number;
 
 	tubeOnDecayRate : number;
 	tubeOffDecayRate : number;
@@ -75,6 +76,7 @@ function generateSpaceStationServer () : SpaceStationServerSettings {
 		name : getValue('name'),
 		type : 'server',
 		room : getValue('room'),
+		maxPlayers : getValue('maxPlayers'),
 		tubeOnDecayRate : getValue('tubeOnDecayRate'),
 		tubeOffDecayRate : getValue('tubeOffDecayRate'),
 		tubeRepairRate : getValue('tubeRepairRate'),
