@@ -57,14 +57,14 @@ const fields = {
         description: 'Rate of %/sec by which a tube repairs after being fixed.'
     },
     openTTSUrl: {
-        name: 'openTTSUrl',
+        name: 'OpenTTS URL',
         input: 'text',
         type: 'string',
         default: 'http://192.168.122.163',
         description: 'URL of the OpenTTS server to use for speech synthesis.'
     },
     openTTSPort: {
-        name: 'openTTSPort',
+        name: 'OpenTTS Port',
         input: 'number',
         type: 'integer',
         default: 5500,
