@@ -61,6 +61,7 @@ function generateSpaceStationClient() {
         tubeRepairRate: getValue('tubeRepairRate'),
         calibrateEyeTracker: getValue('calibrateEyeTracker'),
         useLSL: getValue('useLSL'),
+        allowCrosstalk: getValue('allowCrosstalk')
     };
     return settings;
 }

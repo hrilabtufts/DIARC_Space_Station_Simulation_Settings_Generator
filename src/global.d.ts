@@ -17,6 +17,7 @@ interface Fields {
 	tubeOffDecayRate : Field;
 	tubeRepairRate : Field;
 	stationNotifications : Field;
+	allowCrosstalk: Field;
 	truncateRepairStatements : Field;
 	calibrateEyeTracker : Field;
 	useLSL : Field;

@@ -63,6 +63,13 @@ const fields : Fields = {
 		default : true,
 		description : 'Whether the space station should audibly announce tube breakages and rover events.'
 	},
+	allowCrosstalk : {
+		name : 'Allow Agent Crosstalk',
+		input : 'checkbox',
+		type : 'boolean',
+		default : false,
+		description : 'Whether to allow space station, rover and robots talk over one another. If false they will wait for the other to finish before speaking.'
+	},
     truncateRepairStatements : {
         name: 'Truncate Player Repair Statements',
         input : 'checkbox',

@@ -36,6 +36,7 @@ interface SpaceStationClientSettings {
 
 	calibrateEyeTracker : boolean;
 	useLSL : boolean;
+	allowCrosstalk : boolean;
 }
 
 function capitalizeFirstLetter (str : string) {
@@ -103,6 +104,7 @@ function generateSpaceStationClient () : SpaceStationClientSettings {
 		tubeRepairRate : getValue('tubeRepairRate'),
 		calibrateEyeTracker : getValue('calibrateEyeTracker'),
 		useLSL : getValue('useLSL'),
+		allowCrosstalk : getValue('allowCrosstalk')
 	};
 	return settings;
 }
