@@ -34,6 +34,9 @@ interface SpaceStationClientSettings {
 	tubeOffDecayRate : number;
 	tubeRepairRate : number;
 
+	openTTSUrl : string;
+	openTTSPort : number;
+
 	calibrateEyeTracker : boolean;
 	useLSL : boolean;
 	allowCrosstalk : boolean;
@@ -83,13 +86,11 @@ function generateSpaceStationServer () : SpaceStationServerSettings {
 		tubeRepairRate : getValue('tubeRepairRate'),
 		stationNotifications : getValue('stationNotifications'),
 		truncateRepairStatements : getValue('truncateRepairStatements'),
-		openTTSUrl : getValue('openTTSUrl'),
-		openTTSPort : getValue('openTTSPort'),
 		useLSL : getValue('useLSL'),
 		DIARC : getDIARC(),
 		trials : getTrials()
 	};
-	return settings;
+	return settings;7
 }
 
 function generateSpaceStationClient () : SpaceStationClientSettings {
@@ -104,6 +105,8 @@ function generateSpaceStationClient () : SpaceStationClientSettings {
 		tubeOnDecayRate : getValue('tubeOnDecayRate'),
 		tubeOffDecayRate : getValue('tubeOffDecayRate'),
 		tubeRepairRate : getValue('tubeRepairRate'),
+		openTTSUrl : getValue('openTTSUrl'),
+		openTTSPort : getValue('openTTSPort'),
 		calibrateEyeTracker : getValue('calibrateEyeTracker'),
 		useLSL : getValue('useLSL'),
 		allowCrosstalk : getValue('allowCrosstalk')
