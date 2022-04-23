@@ -16,6 +16,8 @@ interface Fields {
 	tubeOnDecayRate : Field;
 	tubeOffDecayRate : Field;
 	tubeRepairRate : Field;
+	openTTSUrl : Field;
+	openTTSPort : Field;
 	stationNotifications : Field;
 	allowCrosstalk: Field;
 	truncateRepairStatements : Field;

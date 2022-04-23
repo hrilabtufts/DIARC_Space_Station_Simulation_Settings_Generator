@@ -83,6 +83,8 @@ function generateSpaceStationServer () : SpaceStationServerSettings {
 		tubeRepairRate : getValue('tubeRepairRate'),
 		stationNotifications : getValue('stationNotifications'),
 		truncateRepairStatements : getValue('truncateRepairStatements'),
+		openTTSUrl : getValue('openTTSUrl'),
+		openTTSPort : getValue('openTTSPort'),
 		useLSL : getValue('useLSL'),
 		DIARC : getDIARC(),
 		trials : getTrials()
