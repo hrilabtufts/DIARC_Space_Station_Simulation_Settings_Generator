@@ -60,7 +60,7 @@ const fields : Fields = {
 		name : 'OpenTTS URL',
 		input : 'text',
 		type : 'string',
-		default : 'http://192.168.122.163',
+		default : 'http://192.168.0.171',
 		description : 'URL of the OpenTTS server to use for speech synthesis.'
 	},
 	openTTSPort : {
