@@ -121,7 +121,8 @@ function getTubes(trialIndex) {
     let tubeIndex = 0;
     tubes.forEach((tubeElem) => {
         const tElem = {
-            time: getAnyValue(`tube_${trialIndex}_${tubeIndex}_time`, 'integer')
+            time: getAnyValue(`tube_${trialIndex}_${tubeIndex}_time`, 'integer'),
+            specificity: getAnyValue(`tube_${trialIndex}_${tubeIndex}_specificity`, 'integer')
         };
         const tubeVal = getAnyValue(`tube_${trialIndex}_${tubeIndex}_tube`, 'string');
         if (tubeVal !== "") {
@@ -138,7 +139,8 @@ function getRovers(trialIndex) {
     let roverIndex = 0;
     rovers.forEach((roverElem) => {
         const rElem = {
-            time: getAnyValue(`rover_${trialIndex}_${roverIndex}_time`, 'integer')
+            time: getAnyValue(`rover_${trialIndex}_${roverIndex}_time`, 'integer'),
+            specificity: getAnyValue(`tube_${trialIndex}_${roverIndex}_time`, 'integer'),
         };
         const roverVal = getAnyValue(`rover_${trialIndex}_${roverIndex}_position`, 'string');
         if (roverVal !== "") {
@@ -419,12 +421,20 @@ function createTubeElement(trialIndex) {
     const tubeElem = document.createElement('div');
     const tubeTime = document.createElement('input');
     const tubeTube = document.createElement('select');
+    const tubeSpecificity = document.createElement('select');
     const header = document.createElement('strong');
     const hr = document.createElement('hr');
     let option;
     let key;
     let tubeIndex;
     let tubeNumber;
+    const specificity = {
+        0: 'Specific',
+        1: 'Wing + Side',
+        2: 'Wing',
+        3: 'Ambiguous'
+    };
+    const specificityKeys = Object.keys(specificity);
     tubeElem.classList.add('tube');
     tubeIndex = parent.querySelectorAll('.tube').length;
     header.innerHTML = `Tube Break Event #${tubeIndex + 1}`;
@@ -461,7 +471,19 @@ function createTubeElement(trialIndex) {
             }
         }
     }
+    tubeSpecificity.id = `${key}_specificity`;
+    tubeSpecificity.name = `${key}_specificity`;
+    tubeSpecificity.onchange = function () {
+        updateState();
+    };
+    for (let sKey of specificityKeys) {
+        option = document.createElement('option');
+        option.innerHTML = specificity[sKey];
+        option.value = sKey;
+        tubeSpecificity.appendChild(option);
+    }
     tubeElem.appendChild(tubeTube);
+    tubeElem.appendChild(tubeSpecificity);
     tubeElem.appendChild(hr);
     parent.append(tubeElem);
 }
@@ -497,8 +519,16 @@ function createRoverElement(trialIndex) {
     const roverElem = document.createElement('div');
     const roverTime = document.createElement('input');
     const roverPosition = document.createElement('select');
+    const roverSpecificity = document.createElement('select');
     const header = document.createElement('strong');
     const hr = document.createElement('hr');
+    const specificity = {
+        0: 'Specific',
+        1: 'Type + Row',
+        2: 'Type',
+        3: 'Ambiguous'
+    };
+    const specificityKeys = Object.keys(specificity);
     let option;
     let key;
     let roverIndex;
@@ -539,7 +569,19 @@ function createRoverElement(trialIndex) {
             }
         }
     }
+    roverSpecificity.id = `${key}_specificity`;
+    roverSpecificity.name = `${key}_specificity`;
+    roverSpecificity.onchange = function () {
+        updateState();
+    };
+    for (let sKey of specificityKeys) {
+        option = document.createElement('option');
+        option.innerHTML = specificity[sKey];
+        option.value = sKey;
+        roverSpecificity.appendChild(option);
+    }
     roverElem.appendChild(roverPosition);
+    roverElem.appendChild(roverSpecificity);
     roverElem.appendChild(hr);
     parent.append(roverElem);
 }

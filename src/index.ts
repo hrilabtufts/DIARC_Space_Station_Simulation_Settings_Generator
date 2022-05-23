@@ -172,7 +172,8 @@ function getTubes (trialIndex : number) {
 	let tubeIndex : number = 0;
 	tubes.forEach((tubeElem : HTMLElement) => {
 		const tElem : any = {
-			time : getAnyValue(`tube_${trialIndex}_${tubeIndex}_time`, 'integer')
+			time : getAnyValue(`tube_${trialIndex}_${tubeIndex}_time`, 'integer'),
+			specificity :  getAnyValue(`tube_${trialIndex}_${tubeIndex}_specificity`, 'integer')
 		};
 		const tubeVal : any = getAnyValue(`tube_${trialIndex}_${tubeIndex}_tube`, 'string');
 		if (tubeVal !== "") {
@@ -191,7 +192,8 @@ function getRovers (trialIndex : number) {
 	let roverIndex : number = 0;
 	rovers.forEach((roverElem : HTMLElement) => {
 		const rElem : any = {
-			time : getAnyValue(`rover_${trialIndex}_${roverIndex}_time`, 'integer')
+			time : getAnyValue(`rover_${trialIndex}_${roverIndex}_time`, 'integer'),
+			specificity : getAnyValue(`tube_${trialIndex}_${roverIndex}_time`, 'integer'),
 		};
 		const roverVal : any = getAnyValue(`rover_${trialIndex}_${roverIndex}_position`, 'string');
 		if (roverVal !== "") {
@@ -545,12 +547,20 @@ function createTubeElement (trialIndex : number) {
 	const tubeElem : HTMLElement = document.createElement('div');
 	const tubeTime : HTMLInputElement = document.createElement('input');
 	const tubeTube : HTMLSelectElement = document.createElement('select');
+	const tubeSpecificity : HTMLSelectElement = document.createElement('select');
 	const header : HTMLElement = document.createElement('strong');
 	const hr : HTMLElement = document.createElement('hr');
 	let option : HTMLOptionElement;
 	let key : string;
 	let tubeIndex : number;
 	let tubeNumber : number;
+	const specificity : any = {
+		0 : 'Specific',
+		1 : 'Wing + Side',
+		2 : 'Wing',
+		3 : 'Ambiguous'
+	};
+	const specificityKeys : any = Object.keys(specificity);
 
 	tubeElem.classList.add('tube');
 	tubeIndex = parent.querySelectorAll('.tube').length;
@@ -597,7 +607,22 @@ function createTubeElement (trialIndex : number) {
 		}
 	}
 
+	tubeSpecificity.id = `${key}_specificity`;
+	tubeSpecificity.name = `${key}_specificity`;
+
+	tubeSpecificity.onchange = function () {
+		updateState();
+	}
+
+	for (let sKey of specificityKeys) {
+		option = document.createElement('option') as HTMLOptionElement;
+		option.innerHTML = specificity[sKey];
+		option.value = sKey;
+		tubeSpecificity.appendChild(option);
+	}
+
 	tubeElem.appendChild(tubeTube);
+	tubeElem.appendChild(tubeSpecificity);
 	tubeElem.appendChild(hr);
 
 	parent.append(tubeElem);
@@ -645,9 +670,9 @@ function createRoverElement (trialIndex : number) {
 	const header : HTMLElement = document.createElement('strong');
 	const hr : HTMLElement = document.createElement('hr');
 	const specificity : any = {
-		0 : 'Tube specific',
-		1 : 'Side specific',
-		2 : 'Wing specific',
+		0 : 'Specific',
+		1 : 'Type + Row',
+		2 : 'Type',
 		3 : 'Ambiguous'
 	};
 	const specificityKeys = Object.keys(specificity);
@@ -701,10 +726,17 @@ function createRoverElement (trialIndex : number) {
 		}
 	}
 
-	for (let key of specificityKeys) {
+	roverSpecificity.id = `${key}_specificity`;
+	roverSpecificity.name = `${key}_specificity`;
+
+	roverSpecificity.onchange = function () {
+		updateState();
+	}
+
+	for (let sKey of specificityKeys) {
 		option = document.createElement('option') as HTMLOptionElement;
-		option.innerHTML = specificity[key];
-		option.value = key;
+		option.innerHTML = specificity[sKey];
+		option.value = sKey;
 		roverSpecificity.appendChild(option);
 	}
 
