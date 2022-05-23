@@ -641,8 +641,16 @@ function createRoverElement (trialIndex : number) {
 	const roverElem : HTMLElement = document.createElement('div');
 	const roverTime : HTMLInputElement = document.createElement('input');
 	const roverPosition : HTMLSelectElement = document.createElement('select');
+	const roverSpecificity : HTMLSelectElement = document.createElement('select');
 	const header : HTMLElement = document.createElement('strong');
 	const hr : HTMLElement = document.createElement('hr');
+	const specificity : any = {
+		0 : 'Tube specific',
+		1 : 'Side specific',
+		2 : 'Wing specific',
+		3 : 'Ambiguous'
+	};
+	const specificityKeys = Object.keys(specificity);
 	let option : HTMLOptionElement;
 	let key : string;
 	let roverIndex : number;
@@ -693,7 +701,15 @@ function createRoverElement (trialIndex : number) {
 		}
 	}
 
+	for (let key of specificityKeys) {
+		option = document.createElement('option') as HTMLOptionElement;
+		option.innerHTML = specificity[key];
+		option.value = key;
+		roverSpecificity.appendChild(option);
+	}
+
 	roverElem.appendChild(roverPosition);
+	roverElem.appendChild(roverSpecificity);
 	roverElem.appendChild(hr);
 
 	parent.append(roverElem);
