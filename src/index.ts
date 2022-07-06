@@ -30,10 +30,6 @@ interface SpaceStationClientSettings {
 	movementType : string;
 	movementHopDistance : number;
 
-	tubeOnDecayRate : number;
-	tubeOffDecayRate : number;
-	tubeRepairRate : number;
-
 	openTTSUrl : string;
 	openTTSPort : number;
 
@@ -105,9 +101,6 @@ function generateSpaceStationClient () : SpaceStationClientSettings {
 		room : getValue('room'),
 		movementType : getValue('movementType'),
 		movementHopDistance : getValue('movementHopDistance'),
-		tubeOnDecayRate : getValue('tubeOnDecayRate'),
-		tubeOffDecayRate : getValue('tubeOffDecayRate'),
-		tubeRepairRate : getValue('tubeRepairRate'),
 		openTTSUrl : getValue('openTTSUrl'),
 		openTTSPort : getValue('openTTSPort'),
 		kaldiASRUrl : getValue('kaldiASRUrl'),
