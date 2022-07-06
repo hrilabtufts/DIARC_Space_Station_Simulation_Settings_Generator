@@ -18,6 +18,8 @@ interface Fields {
 	tubeRepairRate : Field;
 	openTTSUrl : Field;
 	openTTSPort : Field;
+	kaldiASRUrl : Field;
+	kaldiASRPort : Field;
 	stationNotifications : Field;
 	allowCrosstalk: Field;
 	truncateRepairStatements : Field;

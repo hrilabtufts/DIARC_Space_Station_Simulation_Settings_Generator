@@ -37,6 +37,9 @@ interface SpaceStationClientSettings {
 	openTTSUrl : string;
 	openTTSPort : number;
 
+	kaldiASRUrl : string;
+	kaldiASRPort : number;
+
 	calibrateEyeTracker : boolean;
 	useLSL : boolean;
 	allowCrosstalk : boolean;
@@ -107,6 +110,8 @@ function generateSpaceStationClient () : SpaceStationClientSettings {
 		tubeRepairRate : getValue('tubeRepairRate'),
 		openTTSUrl : getValue('openTTSUrl'),
 		openTTSPort : getValue('openTTSPort'),
+		kaldiASRUrl : getValue('kaldiASRUrl'),
+		kaldiASRPort : getValue('kaldiASRPort'),
 		calibrateEyeTracker : getValue('calibrateEyeTracker'),
 		useLSL : getValue('useLSL'),
 		allowCrosstalk : getValue('allowCrosstalk')

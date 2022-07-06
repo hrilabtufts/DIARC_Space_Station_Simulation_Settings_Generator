@@ -62,6 +62,8 @@ function generateSpaceStationClient() {
         tubeRepairRate: getValue('tubeRepairRate'),
         openTTSUrl: getValue('openTTSUrl'),
         openTTSPort: getValue('openTTSPort'),
+        kaldiASRUrl: getValue('kaldiASRUrl'),
+        kaldiASRPort: getValue('kaldiASRPort'),
         calibrateEyeTracker: getValue('calibrateEyeTracker'),
         useLSL: getValue('useLSL'),
         allowCrosstalk: getValue('allowCrosstalk')

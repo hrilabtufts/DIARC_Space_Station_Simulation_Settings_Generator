@@ -70,6 +70,20 @@ const fields : Fields = {
 		default : 5500,
 		description : 'Port of the OpenTTS server. Set to -1 if no port is used.'
 	},
+	kaldiASRUrl : {
+		name : 'Kaldi ASR URL',
+		input : 'text',
+		type : 'string',
+		default : 'ws://192.168.0.171',
+		description : 'URL of the Kaldi ASR (websocket) server to use for automatic speech recognition.'
+	},
+	kaldiASRPort : {
+		name : 'Kaldi ASR Port',
+		input : 'number',
+		type : 'integer',
+		default : 2700,
+		description : 'Port of the Kaldi ASR server. Set to -1 if no port is used.'
+	},
 	stationNotifications : {
 		name : 'Station Notifications',
 		input : 'checkbox',
