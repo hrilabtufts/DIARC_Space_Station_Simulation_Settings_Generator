@@ -12,6 +12,9 @@ interface SpaceStationServerSettings {
 	tubeOffDecayRate : number;
 	tubeRepairRate : number;
 
+	voiceChatUrl : string;
+	voiceChatPort : number;
+
 	stationNotifications : boolean;
 	truncateRepairStatements : boolean;
 	useLSL : boolean;
@@ -35,6 +38,9 @@ interface SpaceStationClientSettings {
 
 	kaldiASRUrl : string;
 	kaldiASRPort : number;
+
+	voiceChatUrl : string;
+	voiceChatPort : number;
 
 	calibrateEyeTracker : boolean;
 	useLSL : boolean;
@@ -85,6 +91,8 @@ function generateSpaceStationServer () : SpaceStationServerSettings {
 		tubeRepairRate : getValue('tubeRepairRate'),
 		stationNotifications : getValue('stationNotifications'),
 		truncateRepairStatements : getValue('truncateRepairStatements'),
+		voiceChatUrl : getValue('voiceChatUrl'),
+		voiceChatPort : getValue('voiceChatPort'),
 		useLSL : getValue('useLSL'),
 		DIARC : getDIARC(),
 		trials : getTrials()
@@ -105,6 +113,8 @@ function generateSpaceStationClient () : SpaceStationClientSettings {
 		openTTSPort : getValue('openTTSPort'),
 		kaldiASRUrl : getValue('kaldiASRUrl'),
 		kaldiASRPort : getValue('kaldiASRPort'),
+		voiceChatUrl : getValue('voiceChatUrl'),
+		voiceChatPort : getValue('voiceChatPort'),
 		calibrateEyeTracker : getValue('calibrateEyeTracker'),
 		useLSL : getValue('useLSL'),
 		allowCrosstalk : getValue('allowCrosstalk')
