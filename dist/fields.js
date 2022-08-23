@@ -165,14 +165,6 @@ const ROSfields = {
         type: 'integer',
         default: 9090,
         description: 'Port number of remote RosBridge server for Unity to connect to as a client.'
-    },
-    voice: {
-        name: 'Robot Voice Actor',
-        input: 'select',
-        options: ['default'],
-        type: 'string',
-        default: 'default',
-        description: 'Synthesized TTS voice to assign to this robot.'
     }
 };
 const trialFields = {
