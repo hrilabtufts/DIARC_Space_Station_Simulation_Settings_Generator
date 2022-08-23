@@ -290,6 +290,32 @@ function createField (key : string, parent : HTMLElement, fieldsArr : any, index
 	parent.appendChild(hr);
 }
 
+function createVoices (key : string, parent : HTMLElement, index : number = -1, index2 : number = -1) {
+	const descriptionStr : string = 'Select a voice for the Robot from the options available to OpenTTS';
+	const hr : HTMLElement = document.createElement('hr');
+	const label : HTMLElement = document.createElement('h4');
+	let description : HTMLElement = document.createElement('p');
+	let descriptionText : HTMLElement = document.createElement('small');
+
+	if (index > -1) {
+		key += `_${index}`;
+	}
+	if (index2 > -1) {
+		key += `_${index2}`;
+	}
+
+	label.innerHTML = 'Voice';
+	parent.appendChild(label);
+
+	createVoicesSelect(key, parent);
+
+	descriptionText.innerHTML = descriptionStr;
+	description.appendChild(descriptionText);
+	parent.appendChild(description);
+
+	parent.appendChild(hr);
+}
+
 function createInput (key : string, field : Field, parent : HTMLElement) {
 	const inputElem : HTMLInputElement = document.createElement('input') as HTMLInputElement;
 
@@ -330,6 +356,40 @@ function createSelect (key : string, field : Field, parent : HTMLElement) {
 		}
 
 		selectElem.appendChild(optionElem);
+	}
+
+	selectElem.onchange = function () {
+		updateState();
+	}
+
+	parent.appendChild(selectElem);
+}
+
+function createVoicesSelect (key : string, parent : HTMLElement) {
+	const selectElem : HTMLSelectElement = document.createElement('select') as HTMLSelectElement;
+	let optionElem : HTMLOptionElement;
+	let value : string;
+	let label : string
+
+	selectElem.setAttribute('id', key);
+	selectElem.setAttribute('name', key);
+
+	for (let speaker in speakers) {
+		optionElem = document.createElement('option') as HTMLOptionElement;
+		if (speaker === 'coqui-tts:en_vctk') {
+			optionElem.value = speaker;
+			optionElem.innerHTML = speakers[speaker];
+			selectElem.appendChild(optionElem);
+		} else {
+			for (let speakerId in speakerIds) {
+				optionElem.value = `${speaker}|${speakerId}`;
+				optionElem.innerHTML = `${speakers[speaker]} - ${speakerIds[speakerId]}`;
+				if (optionElem.value === 'coqui-tts:en_vctk|p362') {
+					optionElem.selected = true;
+				}
+				selectElem.appendChild(optionElem);
+			}
+		}	
 	}
 
 	selectElem.onchange = function () {
@@ -450,6 +510,8 @@ function createROSElement (parent : HTMLElement, diarcIndex : number) {
 	for (let key of keys) {
 		createField(key, rosElem, ROSfields, state.diarc.lastCreated, rosIndex);
 	}
+
+	createVoices('voice', rosElem, state.diarc.lastCreated, rosIndex);
 
 	parent.appendChild(rosElem);
 }
