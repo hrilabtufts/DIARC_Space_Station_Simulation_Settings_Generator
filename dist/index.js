@@ -287,9 +287,9 @@ function createVoicesSelect(key, parent) {
     selectElem.setAttribute('id', key);
     selectElem.setAttribute('name', key);
     for (let speaker in speakers) {
-        optionElem = document.createElement('option');
         if (speaker === 'coqui-tts:en_vctk') {
             for (let speakerId in speakerIds) {
+                optionElem = document.createElement('option');
                 optionElem.value = `${speaker}|${speakerId}`;
                 optionElem.innerHTML = `${speakers[speaker]} - ${speakerIds[speakerId]}`;
                 if (optionElem.value === 'coqui-tts:en_vctk|p362') {
@@ -299,6 +299,7 @@ function createVoicesSelect(key, parent) {
             }
         }
         else {
+            optionElem = document.createElement('option');
             optionElem.value = speaker;
             optionElem.innerHTML = speakers[speaker];
             selectElem.appendChild(optionElem);
