@@ -1,4 +1,5 @@
 const speakers = {
+    'defualt': 'Default',
     'random': 'Random',
     'coqui-tts:en_vctk': 'coqui-tts: vctk [MF] (en-us)',
     'coqui-tts:en_ljspeech': 'coqui-tts: ljspeech [F] (en-us)',

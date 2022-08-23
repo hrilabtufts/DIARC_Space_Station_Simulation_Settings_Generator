@@ -292,9 +292,6 @@ function createVoicesSelect(key, parent) {
                 optionElem = document.createElement('option');
                 optionElem.value = `${speaker}|${speakerId}`;
                 optionElem.innerHTML = `${speakers[speaker]} - ${speakerIds[speakerId]}`;
-                if (optionElem.value === 'coqui-tts:en_vctk|p362') {
-                    optionElem.selected = true;
-                }
                 selectElem.appendChild(optionElem);
             }
         }
@@ -302,6 +299,9 @@ function createVoicesSelect(key, parent) {
             optionElem = document.createElement('option');
             optionElem.value = speaker;
             optionElem.innerHTML = speakers[speaker];
+            if (speaker === 'default') {
+                optionElem.selected = true;
+            }
             selectElem.appendChild(optionElem);
         }
     }
