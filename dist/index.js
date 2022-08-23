@@ -289,11 +289,6 @@ function createVoicesSelect(key, parent) {
     for (let speaker in speakers) {
         optionElem = document.createElement('option');
         if (speaker === 'coqui-tts:en_vctk') {
-            optionElem.value = speaker;
-            optionElem.innerHTML = speakers[speaker];
-            selectElem.appendChild(optionElem);
-        }
-        else {
             for (let speakerId in speakerIds) {
                 optionElem.value = `${speaker}|${speakerId}`;
                 optionElem.innerHTML = `${speakers[speaker]} - ${speakerIds[speakerId]}`;
@@ -302,6 +297,11 @@ function createVoicesSelect(key, parent) {
                 }
                 selectElem.appendChild(optionElem);
             }
+        }
+        else {
+            optionElem.value = speaker;
+            optionElem.innerHTML = speakers[speaker];
+            selectElem.appendChild(optionElem);
         }
     }
     selectElem.onchange = function () {
