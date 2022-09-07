@@ -221,6 +221,26 @@ function createField(key, parent, fieldsArr, index = -1, index2 = -1) {
     }
     parent.appendChild(hr);
 }
+function createVoices(key, parent, index = -1, index2 = -1) {
+    const descriptionStr = 'Select a voice for the Robot from the options available to OpenTTS';
+    const hr = document.createElement('hr');
+    const label = document.createElement('h4');
+    let description = document.createElement('p');
+    let descriptionText = document.createElement('small');
+    if (index > -1) {
+        key += `_${index}`;
+    }
+    if (index2 > -1) {
+        key += `_${index2}`;
+    }
+    label.innerHTML = 'Voice';
+    parent.appendChild(label);
+    createVoicesSelect(key, parent);
+    descriptionText.innerHTML = descriptionStr;
+    description.appendChild(descriptionText);
+    parent.appendChild(description);
+    parent.appendChild(hr);
+}
 function createInput(key, field, parent) {
     const inputElem = document.createElement('input');
     inputElem.setAttribute('type', field.input);
@@ -253,6 +273,37 @@ function createSelect(key, field, parent) {
             optionElem.selected = true;
         }
         selectElem.appendChild(optionElem);
+    }
+    selectElem.onchange = function () {
+        updateState();
+    };
+    parent.appendChild(selectElem);
+}
+function createVoicesSelect(key, parent) {
+    const selectElem = document.createElement('select');
+    let optionElem;
+    let value;
+    let label;
+    selectElem.setAttribute('id', key);
+    selectElem.setAttribute('name', key);
+    for (let speaker in speakers) {
+        if (speaker === 'coqui-tts:en_vctk') {
+            for (let speakerId in speakerIds) {
+                optionElem = document.createElement('option');
+                optionElem.value = `${speaker}|${speakerId}`;
+                optionElem.innerHTML = `${speakers[speaker]} - ${speakerIds[speakerId]}`;
+                selectElem.appendChild(optionElem);
+            }
+        }
+        else {
+            optionElem = document.createElement('option');
+            optionElem.value = speaker;
+            optionElem.innerHTML = speakers[speaker];
+            if (speaker === 'default') {
+                optionElem.selected = true;
+            }
+            selectElem.appendChild(optionElem);
+        }
     }
     selectElem.onchange = function () {
         updateState();
@@ -343,6 +394,7 @@ function createROSElement(parent, diarcIndex) {
     for (let key of keys) {
         createField(key, rosElem, ROSfields, state.diarc.lastCreated, rosIndex);
     }
+    createVoices('voice', rosElem, state.diarc.lastCreated, rosIndex);
     parent.appendChild(rosElem);
 }
 function createTrialsSection(parent) {

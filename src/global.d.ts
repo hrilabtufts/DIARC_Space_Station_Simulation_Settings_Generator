@@ -37,7 +37,7 @@ interface ROSFields {
 	model : Field;
 	IP : Field;
 	port : Field;
-	voice : Field;
+	voice? : Field;
 }
 
 interface TrialsFields {
