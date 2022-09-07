@@ -201,7 +201,7 @@ function getRovers (trialIndex : number) {
 	rovers.forEach((roverElem : HTMLElement) => {
 		const rElem : any = {
 			time : getAnyValue(`rover_${trialIndex}_${roverIndex}_time`, 'integer'),
-			specificity : getAnyValue(`tube_${trialIndex}_${roverIndex}_specificity`, 'integer'),
+			specificity : getAnyValue(`rover_${trialIndex}_${roverIndex}_specificity`, 'integer'),
 		};
 		const roverVal : any = getAnyValue(`rover_${trialIndex}_${roverIndex}_position`, 'string');
 		if (roverVal !== "") {
