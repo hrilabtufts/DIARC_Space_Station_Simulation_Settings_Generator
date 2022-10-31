@@ -84,19 +84,19 @@ const fields = {
         default: 2700,
         description: 'Port of the Kaldi ASR server. Set to -1 if no port is used.'
     },
-    voiceChatUrl: {
-        name: 'Voice Chat URL',
+    networkConnectionUrl: {
+        name: 'Server URL',
         input: 'text',
         type: 'string',
         default: '192.168.0.212',
-        description: 'URL (or IP address) of the voice chat server hosted by the Unity server build'
+        description: 'URL (or IP address) of the Unity server for Mirror networking'
     },
-    voiceChatPort: {
-        name: 'Voice Chat Port',
+    networkConnectionPort: {
+        name: 'Server Port',
         input: 'number',
         type: 'integer',
         default: 8868,
-        description: 'Port of the voice chat server'
+        description: 'Port of the Unity server for Mirror networking'
     },
     stationNotifications: {
         name: 'Station Notifications',

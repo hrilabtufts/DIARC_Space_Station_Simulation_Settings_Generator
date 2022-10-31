@@ -41,8 +41,8 @@ function generateSpaceStationServer() {
         tubeRepairRate: getValue('tubeRepairRate'),
         stationNotifications: getValue('stationNotifications'),
         truncateRepairStatements: getValue('truncateRepairStatements'),
-        voiceChatUrl: getValue('voiceChatUrl'),
-        voiceChatPort: getValue('voiceChatPort'),
+        networkConnectionUrl: getValue('networkConnectionUrl'),
+        networkConnectionPort: getValue('networkConnectionPort'),
         useLSL: getValue('useLSL'),
         DIARC: getDIARC(),
         trials: getTrials()
@@ -63,8 +63,8 @@ function generateSpaceStationClient() {
         openTTSPort: getValue('openTTSPort'),
         kaldiASRUrl: getValue('kaldiASRUrl'),
         kaldiASRPort: getValue('kaldiASRPort'),
-        voiceChatUrl: getValue('voiceChatUrl'),
-        voiceChatPort: getValue('voiceChatPort'),
+        networkConnectionUrl: getValue('networkConnectionUrl'),
+        networkConnectionPort: getValue('networkConnectionPort'),
         calibrateEyeTracker: getValue('calibrateEyeTracker'),
         useLSL: getValue('useLSL'),
         allowCrosstalk: getValue('allowCrosstalk')
