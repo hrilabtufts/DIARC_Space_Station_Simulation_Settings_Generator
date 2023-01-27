@@ -60,7 +60,7 @@ const fields = {
         name: 'OpenTTS URL',
         input: 'text',
         type: 'string',
-        default: 'http://192.168.0.171',
+        default: 'http://tts.hrilab.xyz',
         description: 'URL of the OpenTTS server to use for speech synthesis.'
     },
     openTTSPort: {
@@ -74,7 +74,7 @@ const fields = {
         name: 'Kaldi ASR URL',
         input: 'text',
         type: 'string',
-        default: 'ws://192.168.0.171',
+        default: 'ws://stt.hrilab.xyz',
         description: 'URL of the Kaldi ASR (websocket) server to use for automatic speech recognition.'
     },
     kaldiASRPort: {
