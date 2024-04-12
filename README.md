@@ -12,6 +12,4 @@ Server settings and client setting should be downloaded together to ensure sync 
 
 # Demo
 
-Accessible in-lab only: 
-
-### [http://192.168.0.171](http://192.168.0.171)
+### []()
