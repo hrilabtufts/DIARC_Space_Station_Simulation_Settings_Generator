@@ -12,4 +12,4 @@ Server settings and client setting should be downloaded together to ensure sync 
 
 # Demo
 
-### [https://]()
+### [https://hrilabtufts.github.io/DIARC_Space_Station_Simulation_Settings_Generator/](https://hrilabtufts.github.io/DIARC_Space_Station_Simulation_Settings_Generator/)
