@@ -9,13 +9,13 @@
         "removeComments" : false,
         "newLine" : "lf",
         "baseUrl" : "./",
-        "outDir": "./dist/",
+        "outDir": "./docs/",
         "rootDir" : "./src/",
         "paths" : {
         }
     },
     "exclude" : [
         "./node_modules",
-        "./dist"
+        "./docs"
     ]
 }
