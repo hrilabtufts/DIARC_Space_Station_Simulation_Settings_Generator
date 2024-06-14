@@ -119,6 +119,13 @@ const fields = {
         default: true,
         description: 'Whether to truncate all statements made by players containing the word "repair".'
     },
+    voiceChatDistortion: {
+        name: 'Distort Player-Player Voice Chat',
+        input: 'checkbox',
+        type: 'boolean',
+        default: true,
+        description: 'Whether to apply voice distortion between players in voice chat.'
+    },
     calibrateEyeTracker: {
         name: 'Calibrate Eye Tracker',
         input: 'checkbox',

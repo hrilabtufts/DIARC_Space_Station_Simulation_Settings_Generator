@@ -42,6 +42,7 @@ interface SpaceStationClientSettings {
 	networkConnectionUrl : string;
 	networkConnectionPort : number;
 
+	voiceChatDistortion : boolean,
 	calibrateEyeTracker : boolean;
 	useLSL : boolean;
 	allowCrosstalk : boolean;
@@ -115,6 +116,7 @@ function generateSpaceStationClient () : SpaceStationClientSettings {
 		kaldiASRPort : getValue('kaldiASRPort'),
 		networkConnectionUrl : getValue('networkConnectionUrl'),
 		networkConnectionPort : getValue('networkConnectionPort'),
+		voiceChatDistortion : getValue('voiceChatDistortion'),
 		calibrateEyeTracker : getValue('calibrateEyeTracker'),
 		useLSL : getValue('useLSL'),
 		allowCrosstalk : getValue('allowCrosstalk')

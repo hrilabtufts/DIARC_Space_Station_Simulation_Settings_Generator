@@ -25,6 +25,7 @@ interface Fields {
 	stationNotifications : Field;
 	allowCrosstalk: Field;
 	truncateRepairStatements : Field;
+	voiceChatDistortion : Field;
 	calibrateEyeTracker : Field;
 	useLSL : Field;
 }
