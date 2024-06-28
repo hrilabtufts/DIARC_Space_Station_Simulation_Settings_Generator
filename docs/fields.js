@@ -60,7 +60,7 @@ const fields = {
         name: 'OpenTTS URL',
         input: 'text',
         type: 'string',
-        default: 'http://tts.hrilab.xyz',
+        default: 'http://192.168.122.140',
         description: 'URL of the OpenTTS server to use for speech synthesis.'
     },
     openTTSPort: {
@@ -74,7 +74,7 @@ const fields = {
         name: 'Kaldi ASR URL',
         input: 'text',
         type: 'string',
-        default: 'ws://stt.hrilab.xyz',
+        default: 'http://192.168.122.140',
         description: 'URL of the Kaldi ASR (websocket) server to use for automatic speech recognition.'
     },
     kaldiASRPort: {
@@ -84,11 +84,25 @@ const fields = {
         default: 2700,
         description: 'Port of the Kaldi ASR server. Set to -1 if no port is used.'
     },
+    voiceChatUrl: {
+        name: 'Voice Chat URL',
+        input: 'text',
+        type: 'string',
+        default: '192.168.0.209',
+        description: 'URL of the Dissonance multiplayer voice chat.'
+    },
+    voiceChatPort: {
+        name: 'Voice Chat Port',
+        input: 'number',
+        type: 'integer',
+        default: 8868,
+        description: 'Port of the Dissonance multiplayer voice chat.'
+    },
     networkConnectionUrl: {
         name: 'Server URL',
         input: 'text',
         type: 'string',
-        default: '192.168.0.212',
+        default: '192.168.0.209',
         description: 'URL (or IP address) of the Unity server for Mirror networking'
     },
     networkConnectionPort: {
@@ -163,7 +177,7 @@ const ROSfields = {
         name: 'RosBridge Server IP Address',
         input: 'text',
         type: 'string',
-        default: '192.168.0.248',
+        default: '192.168.0.192',
         description: 'IP address of remote RosBridge server for Unity to connect to as a client.'
     },
     port: {
@@ -179,14 +193,14 @@ const trialFields = {
         name: 'Trial length',
         input: 'number',
         type: 'integer',
-        default: 300,
+        default: 240,
         description: 'Length of the trial in seconds.'
     },
     robots: {
         name: 'Number of Robots',
         input: 'number',
         type: 'integer',
-        default: 1,
+        default: 2,
         description: 'Number of robots in this trial. Should not exceed number of total RosBridge connections.'
     },
     survey: {

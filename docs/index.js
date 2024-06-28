@@ -31,7 +31,6 @@ function download(obj, name) {
 function generateSpaceStationServer() {
     const settings = {
         created: state.created,
-        id: state.id,
         name: getValue('name'),
         type: 'server',
         room: getValue('room'),
@@ -63,11 +62,15 @@ function generateSpaceStationClient() {
         openTTSPort: getValue('openTTSPort'),
         kaldiASRUrl: getValue('kaldiASRUrl'),
         kaldiASRPort: getValue('kaldiASRPort'),
+        voiceChatUrl: getValue('voiceChatUrl'),
+        voiceChatPort: getValue('voiceChatPort'),
         networkConnectionUrl: getValue('networkConnectionUrl'),
         networkConnectionPort: getValue('networkConnectionPort'),
+        voiceChatDistortion: getValue('voiceChatDistortion'),
         calibrateEyeTracker: getValue('calibrateEyeTracker'),
         useLSL: getValue('useLSL'),
-        allowCrosstalk: getValue('allowCrosstalk')
+        allowCrosstalk: getValue('allowCrosstalk'),
+        microphone: getValue('microphone')
     };
     return settings;
 }

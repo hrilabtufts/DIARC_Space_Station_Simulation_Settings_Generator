@@ -20,6 +20,8 @@ interface Fields {
 	openTTSPort : Field;
 	kaldiASRUrl : Field;
 	kaldiASRPort : Field;
+	voiceChatUrl : Field;
+	voiceChatPort : Field;
 	networkConnectionUrl : Field;
 	networkConnectionPort : Field;
 	stationNotifications : Field;
