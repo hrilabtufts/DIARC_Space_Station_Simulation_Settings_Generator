@@ -60,7 +60,7 @@ const fields = {
         name: 'OpenTTS URL',
         input: 'text',
         type: 'string',
-        default: 'http://192.168.122.140',
+        default: 'http://127.0.0.1',
         description: 'URL of the OpenTTS server to use for speech synthesis.'
     },
     openTTSPort: {
@@ -74,7 +74,7 @@ const fields = {
         name: 'Kaldi ASR URL',
         input: 'text',
         type: 'string',
-        default: 'http://192.168.122.140',
+        default: 'ws://127.0.0.1',
         description: 'URL of the Kaldi ASR (websocket) server to use for automatic speech recognition.'
     },
     kaldiASRPort: {
@@ -88,7 +88,7 @@ const fields = {
         name: 'Voice Chat URL',
         input: 'text',
         type: 'string',
-        default: '192.168.0.209',
+        default: '127.0.0.1',
         description: 'URL of the Dissonance multiplayer voice chat.'
     },
     voiceChatPort: {
@@ -102,7 +102,7 @@ const fields = {
         name: 'Server URL',
         input: 'text',
         type: 'string',
-        default: '192.168.0.209',
+        default: '127.0.0.1',
         description: 'URL (or IP address) of the Unity server for Mirror networking'
     },
     networkConnectionPort: {
@@ -177,7 +177,7 @@ const ROSfields = {
         name: 'RosBridge Server IP Address',
         input: 'text',
         type: 'string',
-        default: '192.168.0.192',
+        default: '127.0.0.1',
         description: 'IP address of remote RosBridge server for Unity to connect to as a client.'
     },
     port: {
