@@ -30,6 +30,7 @@ interface Fields {
 	voiceChatDistortion : Field;
 	calibrateEyeTracker : Field;
 	useLSL : Field;
+	perRobotCommunication : Field;
 }
 
 interface DIARCFields {

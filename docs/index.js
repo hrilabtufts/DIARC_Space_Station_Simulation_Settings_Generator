@@ -44,8 +44,9 @@ function generateSpaceStationServer() {
         networkConnectionUrl: getValue('networkConnectionUrl'),
         networkConnectionPort: getValue('networkConnectionPort'),
         useLSL: getValue('useLSL'),
+        perRobotCommunication: getValue('perRobotCommunication'),
         DIARC: getDIARC(),
-        trials: getTrials()
+        trials: getTrials(),
     };
     return settings;
     7;
@@ -68,7 +69,8 @@ function generateSpaceStationClient() {
         voiceChatDistortion: getValue('voiceChatDistortion'),
         calibrateEyeTracker: getValue('calibrateEyeTracker'),
         useLSL: getValue('useLSL'),
-        allowCrosstalk: getValue('allowCrosstalk')
+        allowCrosstalk: getValue('allowCrosstalk'),
+        perRobotCommunication: getValue('perRobotCommunication')
     };
     return settings;
 }

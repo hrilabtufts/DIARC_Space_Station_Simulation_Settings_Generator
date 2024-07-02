@@ -152,7 +152,14 @@ const fields = {
         input: 'checkbox',
         type: 'boolean',
         default: true,
-        description: 'Whether to use LSL to capture data streams. False will write to files.'
+        description: 'Whether to use LSL to publish clock data streams between clients and server.'
+    },
+    perRobotCommunication: {
+        name: 'Use Per-Robot Communication',
+        input: 'checkbox',
+        type: 'boolean',
+        default: true,
+        description: 'Whether to enforce per-robot communication by selecting which controller is assigned to which robot or to pass all communications to both robots.'
     }
 };
 const DIARCfields = {
