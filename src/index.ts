@@ -170,6 +170,7 @@ function getTrials () {
 			seconds : getAnyValue(`seconds_${trialIndex}`, 'integer'),
 			robots : getAnyValue(`robots_${trialIndex}`, 'integer'),
 			survey : getAnyValue(`survey_${trialIndex}`, 'boolean'),
+			endAtZero : getAnyValue(`endAtZero_${trialIndex}`, 'boolean'),
 			tubes : getTubes(trialIndex),
 			rovers : getRovers(trialIndex)
 		};

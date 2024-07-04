@@ -219,6 +219,13 @@ const trialFields : TrialsFields = {
 		type : 'boolean',
 		default : true,
 		description : 'Whether to include survey questions at end of trial.'
+	},
+	endAtZero : {
+		name : 'End at Zero',
+		input : 'checkbox',
+		type : 'boolean',
+		default : false,
+		description : 'Whether to end the trial when space station health ends at 0 or waits for timer to run out.'
 	}
 };
 

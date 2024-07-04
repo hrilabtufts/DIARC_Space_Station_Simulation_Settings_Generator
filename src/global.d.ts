@@ -48,4 +48,5 @@ interface TrialsFields {
 	seconds : Field;
 	robots : Field;
 	survey : Field;
+	endAtZero : Field;
 }
