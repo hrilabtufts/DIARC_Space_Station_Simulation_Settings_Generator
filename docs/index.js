@@ -585,7 +585,9 @@ function createRoverElement(trialIndex) {
         0: 'Specific',
         1: 'Type + Row',
         2: 'Type',
-        3: 'Ambiguous'
+        3: 'Ambiguous',
+        4: 'Random',
+        5: 'No announcement'
     };
     const specificityKeys = Object.keys(specificity);
     let option;

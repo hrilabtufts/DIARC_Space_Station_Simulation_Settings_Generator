@@ -7,18 +7,18 @@ const fields : Fields = {
 		description : 'A unique name for your study.'
 	},
 	room : {
-		name : 'Photon Room',
+		name : 'Room',
 		input : 'text',
 		type : 'string',
 		default : 'Test Room 1',
-		description : 'The name of the Photon multiplayer room, unique to your study.'
+		description : 'The name of the room the study participant is located.'
 	},
 	maxPlayers : {
 		name : 'maxPlayers',
 		input : 'number',
 		type : 'integer',
 		default : 2,
-		description : 'Maximum number of players to allow in a room.'
+		description : 'Maximum number of players to allow in a multiplayer session.'
 	},
 	movementType : {
 		name : 'VR Movement Type',
