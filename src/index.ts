@@ -48,6 +48,8 @@ interface SpaceStationClientSettings {
 	useLSL : boolean;
 	allowCrosstalk : boolean;
 	perRobotCommunication : boolean;
+	preventCommunicationOutsideTrials : boolean;
+
 }
 
 function capitalizeFirstLetter (str : string) {
@@ -119,11 +121,12 @@ function generateSpaceStationClient () : SpaceStationClientSettings {
 		kaldiASRPort : getValue('kaldiASRPort'),
 		networkConnectionUrl : getValue('networkConnectionUrl'),
 		networkConnectionPort : getValue('networkConnectionPort'),
-		voiceChatDistortion : getValue('voiceChatDistortion'),
 		calibrateEyeTracker : getValue('calibrateEyeTracker'),
 		useLSL : getValue('useLSL'),
 		allowCrosstalk : getValue('allowCrosstalk'),
-		perRobotCommunication : getValue('perRobotCommunication')
+		perRobotCommunication : getValue('perRobotCommunication'),
+		voiceChatDistortion : getValue('voiceChatDistortion'),
+		preventCommunicationOutsideTrials : getValue('preventCommunicationOutsideTrials')
 	};
 	return settings;
 }

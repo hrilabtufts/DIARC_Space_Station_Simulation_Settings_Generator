@@ -133,13 +133,6 @@ const fields = {
         default: true,
         description: 'Whether to truncate all statements made by players containing the word "repair".'
     },
-    voiceChatDistortion: {
-        name: 'Distort Player-Player Voice Chat',
-        input: 'checkbox',
-        type: 'boolean',
-        default: true,
-        description: 'Whether to apply voice distortion between players in voice chat.'
-    },
     calibrateEyeTracker: {
         name: 'Calibrate Eye Tracker',
         input: 'checkbox',
@@ -160,6 +153,20 @@ const fields = {
         type: 'boolean',
         default: true,
         description: 'Whether to enforce per-robot communication by selecting which controller is assigned to which robot or to pass all communications to both robots.'
+    },
+    voiceChatDistortion: {
+        name: 'Distort Player-Player Voice Chat',
+        input: 'checkbox',
+        type: 'boolean',
+        default: true,
+        description: 'Whether to apply voice distortion between players in voice chat.'
+    },
+    preventCommunicationOutsideTrials: {
+        name: 'Prevent Player-Player Voice Chat Outside Trials',
+        input: 'checkbox',
+        type: 'boolean',
+        default: true,
+        description: 'Whether to prevent voice chat between players when not in an active trial.'
     }
 };
 const DIARCfields = {

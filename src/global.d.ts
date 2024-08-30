@@ -31,6 +31,7 @@ interface Fields {
 	calibrateEyeTracker : Field;
 	useLSL : Field;
 	perRobotCommunication : Field;
+	preventCommunicationOutsideTrials : Field;
 }
 
 interface DIARCFields {

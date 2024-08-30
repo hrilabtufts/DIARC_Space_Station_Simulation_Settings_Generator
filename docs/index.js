@@ -66,11 +66,12 @@ function generateSpaceStationClient() {
         kaldiASRPort: getValue('kaldiASRPort'),
         networkConnectionUrl: getValue('networkConnectionUrl'),
         networkConnectionPort: getValue('networkConnectionPort'),
-        voiceChatDistortion: getValue('voiceChatDistortion'),
         calibrateEyeTracker: getValue('calibrateEyeTracker'),
         useLSL: getValue('useLSL'),
         allowCrosstalk: getValue('allowCrosstalk'),
-        perRobotCommunication: getValue('perRobotCommunication')
+        perRobotCommunication: getValue('perRobotCommunication'),
+        voiceChatDistortion: getValue('voiceChatDistortion'),
+        preventCommunicationOutsideTrials: getValue('preventCommunicationOutsideTrials')
     };
     return settings;
 }
